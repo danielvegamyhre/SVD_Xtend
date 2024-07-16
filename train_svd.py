@@ -720,6 +720,13 @@ def main():
     if isinstance(unet, (torch.nn.DataParallel, torch.nn.parallel.DistributedDataParallel)):
         unet = unet.module
 
+    # print num params
+    vae_num_params = sum(p.numel() for p in vae.parameters())
+    image_encoder_num_params = sum(p.numel() for p in image_encoder.parameters())
+    unet_num_params = sum(p.numel() for p in unet.parameters())
+    total_params = vae_num_params + image_encoder_num_params + unet_num_params
+    print(f"total params: {total_params}, bytes with fp16: {total_params * 2}")
+
     # Freeze vae and image_encoder
     vae.requires_grad_(False)
     image_encoder.requires_grad_(False)
