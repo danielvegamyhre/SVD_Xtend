@@ -8,4 +8,5 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 accelerate launch train_svd.py \
     --learning_rate=1e-5 --lr_warmup_steps=0 \
     --seed=123 \
     --validation_steps=100 \
+    --num_frames 14 \
     --base_folder="/content/gdrive/My Drive/smile"
