@@ -743,7 +743,20 @@ def main():
     # Move image_encoder and vae to gpu and cast to weight_dtype
     image_encoder.to(accelerator.device, dtype=weight_dtype)
     vae.to(accelerator.device, dtype=weight_dtype)
-    unet.to(accelerator.device, dtype=weight_dtype) # was commented out
+    # unet.to(accelerator.device, dtype=weight_dtype)
+
+    # cast frozen unet params to fp16
+    unet.requires_grad_(True)
+    parameters_list = []
+
+    # Customize the parameters that need to be trained; if necessary, you can uncomment them yourself.
+    for name, para in unet.named_parameters():
+        if 'temporal_transformer_block' in name:
+            parameters_list.append(para)
+            para.requires_grad = True
+        else:
+            para.requires_grad = False
+            para.data = para.data.to(dtype=weight_dtype) # torch.float16
 
     # Create EMA for the unet.
     if args.use_ema:
