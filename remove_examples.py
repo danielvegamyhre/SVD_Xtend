@@ -9,6 +9,7 @@ def main(root: str, min_frames: int):
         for d in dirs:
             path = os.path.join(curr_dir, d)
             num_frames = len(os.listdir(path))
+            print(f"{d} has {num_frames} frames")
             if num_frames < min_frames:
                 shutil.rmtree(path)
                 print(f'removed {path}')

@@ -1,4 +1,4 @@
-PYTORCH_ENABLE_MPS_FALLBACK=1 accelerate launch train_svd.py \
+accelerate launch train_svd.py \
     --pretrained_model_name_or_path="stabilityai/stable-video-diffusion-img2vid-xt" \
     --per_gpu_batch_size=1 --gradient_accumulation_steps=1 \
     --max_train_steps=10000 \
@@ -7,7 +7,9 @@ PYTORCH_ENABLE_MPS_FALLBACK=1 accelerate launch train_svd.py \
     --checkpointing_steps=1000 --checkpoints_total_limit=1 \
     --learning_rate=1e-5 --lr_warmup_steps=0 \
     --seed=123 \
-    --validation_steps=100 \
+    --validation_steps=1000 \
     --num_frames 14 \
     --mixed_precision="fp16" \
-    --base_folder="/workspace"
+    --base_folder="/workspace/data" \ 
+    --logging_dir="logs" \
+    --output_dir="/workspace/outputs"
