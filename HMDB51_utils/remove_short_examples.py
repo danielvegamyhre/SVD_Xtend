@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-
+"""
+Script to remove video examples with less than N frames.
+It is assumed the frames from each example are stored in a
+separate subdirectory.
+"""
 import os
 import sys
 import shutil
@@ -15,4 +19,6 @@ def main(root: str, min_frames: int):
                 print(f'removed {path}')
 
 if __name__ == '__main__':
-    main(sys.argv[1], int(sys.argv[2]))
+    root_dir = sys.argv[1]
+    min_frames = int(sys.argv[2])
+    main(root_dir, min_frames)

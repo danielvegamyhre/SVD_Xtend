@@ -10,6 +10,5 @@ accelerate launch train_svd.py \
     --validation_steps=1000 \
     --num_frames 14 \
     --mixed_precision="fp16" \
-    --base_folder="/workspace/data" \ 
-    --logging_dir="logs" \
-    --output_dir="/workspace/outputs"
+    --base_folder="/workspace" \ 
+    --output_dir="outputs"

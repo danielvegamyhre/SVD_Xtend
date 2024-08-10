@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+Script to resize example frames of all videos.
+"""
 import os
 import sys
 from PIL import Image
