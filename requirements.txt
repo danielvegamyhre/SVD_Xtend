@@ -6,3 +6,4 @@ tqdm
 diffusers
 accelerate
 einops
+tqdm

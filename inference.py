@@ -22,14 +22,17 @@ pipe = StableVideoDiffusionPipeline.from_pretrained(
                         )
 pipe.to("cuda:0")
 
+pipe.enable_model_cpu_offload()
+pipe.unet.enable_forward_chunking()
+
 image = load_image(input_image_path)
-image = image.resize((320,320))
+image = image.resize((1024, 576))
 
 generator = torch.manual_seed(-1)
 with torch.inference_mode():
         frames = pipe(image,
                         num_frames=60,
-                        width=320,
-                        height=320,
-                        decode_chunk_size=8, generator=generator, motion_bucket_id=127, fps=8, num_inference_steps=60).frames[0]
+                        width=1024,
+                        height=576,
+                        decode_chunk_size=8, generator=generator, motion_bucket_id=10, fps=8, num_inference_steps=30).frames[0]
         export_to_video(frames, "generated.mp4", fps=7)
